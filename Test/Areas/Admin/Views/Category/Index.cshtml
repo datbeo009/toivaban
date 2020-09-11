@@ -1,0 +1,218 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div>
+    <h2>Category Manager</h2>
+    <div>
+        <div class="col-md-12">
+            <div>
+                <button class="btn btn-info" id="add" style="width:100px; height:50px;float:right ">
+                    <i class="fa fa-plus-square-o">
+                        ADD
+                    </i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <div>
+        <table class="table" >
+            <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Sub-Category</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="dataCategory"></tbody>
+        </table>
+    </div>
+    <div class="modal" id="addedit" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="card">
+                    <div class="card-header"><strong></strong><small> Category</small></div>
+                    <div class="card-body card-block">
+                        <div class="form-group">
+                            <label for="company" class=" form-control-label">Name</label>
+                            <input type="text" id="name" placeholder="Enter your product name" class="form-control">
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="select" class=" form-control-label">Parent</label></div>
+                            <div class="col-12 col-md-9">
+                                <select name="select" id="selectCate" class="form-control">
+                                    <option value="0">--Select Category--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label class=" form-control-label">Active</label></div>
+                            <input type="checkbox" id="active" class="form-control" style="width:50px; height:30px">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="closeM">Close</button>
+                            <button type="button" class="btn btn-primary" id="btnAccept">Save </button>
+                        </div>
+                        @*<---END data- TABLE--->*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="modal" id="DeleteForm" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    Are you sure?
+                    <input type="hidden" id="delId" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeDel">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnDel">Save</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .openModal {
+        display: block !important
+    }
+</style>
+<script>
+    var _glbCategory;
+    var lsCategory = $('#dataCategory');
+    var selectCate = $('#selectCate');
+    function loadCategory() {
+        lsCategory.html('');
+        selectCate.html('');
+        $.ajax({
+            url: "/Admin/Category/Gets",
+            type: "Get",
+            success: function (res) {
+                _glbCategory = res;
+                if (_glbCategory) {
+                    _glbCategory.forEach((e, i) => {
+                        lsCategory.append("<tr><th scope ='row'>" + (i + 1) + "</th ><td>" + e.CategoryName + "</td><td>" + e.ParentId + "</td><td ><a data-id='" + e.CategoryID + "' class='btnEdit'><i class='fa fa-wrench'></i></a> <a class='btnDel' data-id='" + e.CategoryID + "'><i class='fa fa-times-circle' ></i></a></td></tr >");
+                        selectCate.append("<option value='" + e.CategoryID + "'>" + e.CategoryName + " </option>");
+
+
+                    })
+                }
+            }
+        })
+    }
+    loadCategory();
+
+
+    //---add and edit---
+    $(document).on('click', '.btnEdit', function () {
+        resetForm();
+        var categoryId = $(this).attr('data-id');
+        var category = _glbCategory.find(e => e.CategoryID == categoryId);
+        if (category) {
+            $('#name').val(category.CategoryName);
+            $('#selectCate').val(category.ParentId);
+            $('#active').val(category.Active);
+            obj.CategoryID = categoryId
+        }
+        $('#addedit').addClass('openModal');
+    })
+
+    $(document).on('click', '#add', function () {
+        resetForm();
+        $('#addedit').addClass('openModal');
+    })
+
+    $(document).on('click', '#closeM', function () {
+        $('#addedit').removeClass('openModal');
+    })
+
+    
+    var obj = {}
+    $(document).on('click', '#btnAccept', function () {
+        obj.CategoryName = $('#name').val();
+        obj.ParentId = $('#selectCate').val();
+        obj.Active = $('#active').val();
+        Save(obj);
+    })
+    function Save(category) {
+        $.ajax({
+            url: "/Admin/Category/CreateOrUpdate",
+            type: "Post",
+            data: { model: category },
+            success: function (res) {
+                if (res) {
+                    alert("thanh cong")
+                    loadCategory();
+                } else {
+                    alert("that bai")
+                }
+            }, error: function (error) {
+                console.log(error);
+            }
+
+        })
+        $('#addedit').removeClass('openModal');
+    }
+
+    //--delete---
+    $(document).on('click ', '.btnDel', function () {
+        var categoryId = $(this).attr('data-id');
+        $('#delId').val(categoryId);
+        $('#DeleteForm').addClass('openModal');
+    })
+
+    $(document).on('click', '#btnDel', function () {
+        var id = $('#delId').val();
+        Delete(id);
+    })  
+
+    $(document).on('click', '#closeDel', function () {
+        $('#DeleteForm').removeClass('openModal');
+    })
+
+    function Delete(id) {
+        $.ajax({
+            url: "/Admin/Category/Delete",
+            type: "POST",
+            data: {
+                id: id
+            },
+            success: function (res) {
+                if (res) {
+                    loadCategory();
+                    alert('xoa thanh cong');
+                } else {
+                    alert('xoa that bai');
+                }
+            }, error: function (error) {
+               console.log(error);
+            }               
+        })
+        $("#DeleteForm").removeClass('openModal');
+    }
+
+    function resetForm() {
+        $('#name').val('');
+        $('#selectCate').val('');
+        $('#active').val('');
+
+    }
+</script>

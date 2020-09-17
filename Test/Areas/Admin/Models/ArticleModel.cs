@@ -20,5 +20,6 @@ namespace Test.Areas.Admin.Models
         public DateTime? CreatedDate { get; set; }
 
         public int Status { get; set; }
+        public string ListImage { get; set; }
     }
 }

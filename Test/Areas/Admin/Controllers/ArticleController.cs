@@ -34,6 +34,7 @@ namespace Test.Areas.Admin.Controllers
             entity.ID = model.ID;
             entity.Title = model.Title;
             entity.Content = model.Content;
+            entity.ListImage = model.ListImage;
             entity.Image = model.Image;
             entity.CreatedDate = model.CreatedDate;
     

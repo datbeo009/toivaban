@@ -55,6 +55,7 @@
     <Compile Include="DAL\ArticleBll.cs" />
     <Compile Include="DAL\CategoryBll.cs" />
     <Compile Include="DAL\ProductBll.cs" />
+    <Compile Include="DAL\UserBll.cs" />
     <Compile Include="Entity\Account.cs" />
     <Compile Include="Entity\Article.cs" />
     <Compile Include="Entity\Category.cs" />

@@ -36,7 +36,7 @@
     <div class="modal" id="addedit" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="card">
+            <div class="card" style="width:700px">
                 <div class="card-header"><strong></strong><small> Article</small></div>
                 <div class="card-body card-block">
                     <div class="form-group">
@@ -45,7 +45,14 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3"><label for="file-input" class=" form-control-label">File input</label></div>
-                        <div class="col-12 col-md-9"><input type="file" id="file-input" name="file-input" class="form-control-file"></div>
+                        <div class="col-12 col-md-9">
+
+                            <div id="imgapp"></div>
+
+                            <input type="file" id="fileToUpload" class="form-control" />
+                            <br />
+                            <button id="upload" class="btn btn-primary">Upload</button>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" id="closeM">Close</button>
@@ -108,6 +115,35 @@
     }
     loadArticle();
 
+    //---Upload Image---
+    CKEDITOR.replace('CkContent');
+    $("#upload").click(function () {
+        if (window.FormData == undefined) {
+            alert("Error: FormData is undefined");
+        } else {
+            var fileUpload = $('#fileToUpload').get(0);
+            var files = fileUpload.files;
+            var fileData = new FormData();
+            fileData.append(files[0].name, files[0]);
+            $('#imgapp').html('');
+            $.ajax({
+                url: '/File/UploadFile',
+                type: 'Post',
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                async: false,
+                data: fileData,
+                success: function (res) {
+                    $('#imgapp').append("<img class='imgUp' src='" + res + "'>");
+                }
+
+            });
+        }
+
+    });
+
+    //---ADD END EDIT ----
     $(document).on('click', '#add', function () {
         resetForm();
         $("#addedit").addClass('openModal');
@@ -116,7 +152,6 @@
         $("#addedit").removeClass('openModal');
     })
 
-   
 
     $(document).on('click', '.btnEdit', function () {
         resetForm();
@@ -133,8 +168,14 @@
     $('#btnAccept').on('click', function () {
         obj.Title = $('#title').val();
         obj.Content = $('#content').val();
+        var lsImg = "";
+        for (var i = 0; i < $(".imgUp").length; i++) {
+            lsImg += $(".imgUp").eq(i).attr("src") + ",";
+        }
+        obj.ListImage = lsImg;
         CreateOrUpdate(obj);
     })
+
 
    
 
@@ -201,6 +242,7 @@
     }
     function resetForm() {
         $('#title').val('');
+        $('#imgapp').val('');
 
     }
 </script>

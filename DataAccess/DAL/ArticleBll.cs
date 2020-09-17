@@ -35,6 +35,7 @@ namespace DataAccess.DAL
                     var article = _dbContext.Article.Find(entity.ID);
                     article.Title = entity.Title;
                     article.Image = entity.Image;
+                    article.ListImage = entity.ListImage;
                     article.CreatedDate = entity.CreatedDate;
                     article.Content = entity.Content;
                 }

@@ -34,9 +34,9 @@
     </table>
     </div>
     <div class="modal" id="addedit" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 1000px!important">
         <div class="modal-content">
-            <div class="card" style="width:700px">
+            <div class="card" style="width:997px;height:1010px ">
                 <div class="card-header"><strong></strong><small> Article</small></div>
                 <div class="card-body card-block">
                     <div class="form-group">
@@ -54,6 +54,7 @@
                             <button id="upload" class="btn btn-primary">Upload</button>
                         </div>
                     </div>
+                    <textarea id="CkContent"></textarea>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" id="closeM">Close</button>
                         <button type="button" class="btn btn-primary" id="btnAccept">Save </button>
@@ -95,6 +96,7 @@
         display: block !important
     }
 </style>
+
 <script>
     var _glbArticle;
     var lsArticle = $('#dataArticle');
@@ -117,6 +119,7 @@
 
     //---Upload Image---
     CKEDITOR.replace('CkContent');
+
     $("#upload").click(function () {
         if (window.FormData == undefined) {
             alert("Error: FormData is undefined");

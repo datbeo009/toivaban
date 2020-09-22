@@ -31,9 +31,9 @@
         </table>
     </div>
     <div class="modal" id="addedit" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 1000px!important">
             <div class="modal-content">
-                <div class="card">
+                <div class="card" style="width:997px;height:1010px ">
                     <div class="card-header"><strong></strong><small> Category</small></div>
                     <div class="card-body card-block">
                         <div class="form-group">
@@ -107,11 +107,21 @@
             type: "Get",
             success: function (res) {
                 _glbCategory = res;
+                console.log(res)
                 if (_glbCategory) {
                     _glbCategory.forEach((e, i) => {
-                        lsCategory.append("<tr><th scope ='row'>" + (i + 1) + "</th ><td>" + e.CategoryName + "</td><td>" + e.ParentId + "</td><td ><a data-id='" + e.CategoryID + "' class='btnEdit'><i class='fa fa-wrench'></i></a> <a class='btnDel' data-id='" + e.CategoryID + "'><i class='fa fa-times-circle' ></i></a></td></tr >");
-                        selectCate.append("<option value='" + e.CategoryID + "'>" + e.CategoryName + " </option>");
+                        var cateId = e.CategoryID;
+                        lsCategory.append("<tr><th scope ='row'>" + (i + 1) + "</th ><td>" + e.CategoryName + "</td><td><button class ='selSub"+i+"' type='button' data-toggle='dropdown'></button></td><td ><a data-id='" + cateId + "' class='btnEdit'><i class='fa fa-wrench'></i></a> <a class='btnDel' data-id='" + cateId + "'><i class='fa fa-times-circle' ></i></a></td></tr >");
+                        selectCate.append("<option value='" + cateId + "'>" + e.CategoryName + " </option>");
+                        
+                        var childCate = e.lsChild;
 
+                        if (childCate.length > 0) {
+                            childCate.forEach(m => {
+                                $(".selSub" + i).append("<ul class='dropdown - menu'><li>" + m.CategoryName + "</ul</li>")
+                            })
+                        }
+                        
 
                     })
                 }
@@ -134,7 +144,7 @@
         }
         $('#addedit').addClass('openModal');
     })
-
+    //
     $(document).on('click', '#add', function () {
         resetForm();
         $('#addedit').addClass('openModal');

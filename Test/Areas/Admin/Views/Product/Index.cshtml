@@ -45,14 +45,17 @@
         </table>
     </div>
     <div class="modal" id="addedit" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 1000px!important">
             <div class="modal-content">
-                <div class="card" style="width:800px; ">
+                <div class="card" style="width:997px;height:1010px ">
                     <div class="card-header"><strong>Add</strong><small> Product</small></div>
                     <div class="card-body card-block">
-                        <div class="form-group">
-                            <label for="company" class=" form-control-label">Name</label>
-                            <input type="text" id="name" placeholder="Enter your product name" class="form-control">
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="company" class=" form-control-label">Name</label></div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="name" placeholder="Enter your product name" class="form-control">
+                            </div>
+
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3"><label for="select" class=" form-control-label">Category</label></div>
@@ -65,12 +68,14 @@
                             </div>
                         </div>
                         <div class="row form-group">
-                            <div class="col col-md-3"><label for="select" class=" form-control-label">Sub-Category</label></div>
-                            <div class="col-12 col-md-9">                          
-                                <div style="display:none" id="divSub">
+                            <div style="display:none" id="divSub">
+                                <div class="col col-md-3"><label for="select" class=" form-control-label">Sub-Category</label></div>
+                              
+                                <div style="position:relative;left:260px;bottom:40px">
                                     <select id="subCate" class="form-control"></select>
-
                                 </div>
+                                        
+                                                                   
                             </div>
                         </div>
                         <div class="row form-group">
@@ -84,13 +89,15 @@
                                 <button id="upload" class="btn btn-primary">Upload</button>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="city" class=" form-control-label">Price</label>
-                            <input type="text" id="price" placeholder="Enter your Price" class="form-control">
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="city" class=" form-control-label">Price</label></div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="price" placeholder="Enter your Price" class="form-control">
+                            </div>
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Description</label></div>
-                            <div class="col-12 col-md-9"><textarea id="CkContent"></textarea></div>
+                            <div class="col-12 col-md-9"><textarea id="CkContent" ></textarea></div>
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3"><label class=" form-control-label">Active</label></div>
@@ -194,13 +201,11 @@
 
 
     function lsProductFilter(lsPro) {
-        
+        lsProduct.html('');
         lsPro.forEach((e, i) => {
             lsProduct.append("<tr><th scope ='row'>" + (i + 1) + "</th ><td>" + e.ProductName + "</td><td>" + e.CategoryName + "</td><td>Image</td><td>" + e.Price + "</td><td ><a data-id='" + e.ProductID + "' class='btnEdit'><i class='fa fa-wrench'></i></a> <a class='btnDel' data-id='" + e.ProductID + "'><i class='fa fa-times-circle' ></i></a></td></tr >");
         })
     }
-
-
     loadProduct();
 
     //tất cả category

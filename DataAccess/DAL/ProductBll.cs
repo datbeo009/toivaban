@@ -80,7 +80,10 @@ namespace DataAccess.DAL
             }
 
         }
-
+        public Product GetById(int id)
+        {
+            return _dbContext.Products.Find(id);
+        }
         public bool CheckExistProductName(string name)
         {
             return _dbContext.Products.Any(e => e.ProductName == name);

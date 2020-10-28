@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="DAL\ArticleBll.cs" />
     <Compile Include="DAL\CategoryBll.cs" />
+    <Compile Include="DAL\Encryptor.cs" />
     <Compile Include="DAL\ProductBll.cs" />
     <Compile Include="DAL\UserBll.cs" />
     <Compile Include="Entity\Account.cs" />

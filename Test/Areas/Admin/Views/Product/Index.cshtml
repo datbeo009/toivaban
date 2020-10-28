@@ -3,9 +3,9 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-<div>
+<div style="background-color:white">
     <h2>Product Manager</h2>
-    <div>
+    <div >
         <div class="col-md-12">
             <div>
                 <button class="btn btn-info" id="add" style="width:100px; height:50px;  position:relative; top:35px">
@@ -14,7 +14,7 @@
                     </i>
                 </button>
             </div>
-            <div class="row form-group" style="width:250px;float:right; position:relative; right:70px">
+            <div class="row form-group" style="width:330px;float:right; position:relative; right:70px">
                 <div class="col col-md-3"><label for="select" id="select" class=" form-control-label"></label></div>
                 <div class="col-12 col-md-9">
                     <select name="select" id="ftCate" class="form-control">
@@ -45,11 +45,11 @@
         </table>
     </div>
     <div class="modal" id="addedit" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 1000px!important">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 1200px!important">
             <div class="modal-content">
-                <div class="card" style="width:997px;height:1010px ">
-                    <div class="card-header"><strong>Add</strong><small> Product</small></div>
-                    <div class="card-body card-block">
+                <div class="card" style="width:1197px;height:880px  ">
+                    <div class="card-header" ><strong>Add Product</strong><div id="closeM" class="fa fa-times" style="float:right"></div></div>
+                    <div class="card-body card-block" style="overflow:scroll">
                         <div class="row form-group">
                             <div class="col col-md-3"><label for="company" class=" form-control-label">Name</label></div>
                             <div class="col-12 col-md-9">
@@ -60,7 +60,7 @@
                         <div class="row form-group">
                             <div class="col col-md-3"><label for="select" class=" form-control-label">Category</label></div>
 
-                            <div class="col-12 col-md-9">
+                            <div class="col-12 col-md-9" ">
                                 <select name="select" id="selectCate" class="form-control">
                                     <option value="0">--Select Category--</option>
                                 </select>
@@ -141,6 +141,10 @@
     </div>
 </div>
 
+<div id="pagination">
+
+</div>
+
 <style>
     .openModal {
         display: block !important
@@ -151,6 +155,7 @@
     var lsProduct = $('#dataProduct');
     var ftCate = $('#ftCate');
     var lsCate = $('#selectCate');
+    var pagi = $('#pagination');
     function loadProduct() {
         $.ajax({
             url: "/Admin/Product/Gets",
@@ -158,6 +163,13 @@
             success: function (res) {
                 _glbProduct = res;
                 if (_glbProduct) {
+
+
+                    var getPage =  ShowOnPagination(_glbProduct.length, 5);
+
+                    pagi.append(getPage);
+                    var indexToShow = getRowShowByPagi(_glbProduct.length, 5, 1);
+                    console.log(indexToShow);
                     lsProductFilter(_glbProduct);
                 }
             }
@@ -260,12 +272,12 @@
         lsProductFilter(ftPro)
     })
 
-    ListCate();
-    //$(document).on('click')
-    //$("#select option:selected").text();
 
+
+    //---Create & Update---
     $(document).on('click', '#add', function () {
         resetForm();
+        
         $("#addedit").addClass('openModal');
     })
 
@@ -291,6 +303,7 @@
    
     var obj = {}
     $(document).on('click', '#btnAccept', function () {
+        
         obj.ProductName = $('#name').val();
         obj.CategoryID = $('#subCate').val();
         if (obj.CategoryID == null) {
@@ -303,15 +316,12 @@
             }
             obj.ListImage = lsImg;
             obj.Price = $('#price').val();
-            obj.Description = CKEDITOR.instances["CkContent"].getData()
+            obj.Description = CKEDITOR.instances["CkContent"].getData();
             obj.Active = $('#active').val();
             CreateOrUpdate(obj);
         }
        
     })
-
-
-
 
 
     function CreateOrUpdate(product) {
@@ -381,6 +391,7 @@
         $('#active').val('');
         $('#CkContent').val('');
         $('#imgapp').val('');
+        
     }
 </script>
 

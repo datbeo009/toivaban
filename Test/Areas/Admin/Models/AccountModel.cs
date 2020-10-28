@@ -24,5 +24,7 @@ namespace Test.Areas.Admin.Models
         public DateTime? CreatedDate { get; set; }
 
         public DateTime? LastModifiedDate { get; set; }
+
+        public string ConfirmPassword { get; set; }
     }
 }

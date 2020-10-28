@@ -81,6 +81,10 @@ namespace DataAccess.DAL
             }
 
         }
+        public Category GetById(int id)
+        {
+            return _dbContext.Categories.Find(id);
+        }
         public bool CheckExistCateName(string name)
         {
             return _dbContext.Categories.Any(e => e.CategoryName == name);

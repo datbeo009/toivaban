@@ -16,6 +16,9 @@ namespace DataAccess.Entity
 
         [StringLength(50)]
         public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
+
+        public string Salt { get; set; }
 
         [StringLength(50)]
         public string Phone { get; set; }
@@ -30,5 +33,7 @@ namespace DataAccess.Entity
         public DateTime? CreatedDate { get; set; }
 
         public DateTime? LastModifiedDate { get; set; }
+
+        public bool Status { get; set; }
     }
 }

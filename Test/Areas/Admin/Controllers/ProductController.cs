@@ -14,6 +14,13 @@ namespace Test.Areas.Admin.Controllers
         // GET: Admin/Product
         public ActionResult Index()
         {
+            //ShoppingCartController ctroller = new ShoppingCartController();
+            //ctroller.AddToCart(1);
+
+            //var abc = ctroller.GetCart();
+
+
+
             return View();
         }
         ProductBll proBll = new ProductBll();

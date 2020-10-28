@@ -23,22 +23,53 @@ namespace Test.Areas.Admin.Controllers
         {
             return Json(ull.Gets(), JsonRequestBehavior.AllowGet);
         }
+        //[HttpPost]
+        //public bool CreateOrUpdate(AccountModel model )
+        //{
+        //    Account entity = new Account();
+        //    if(ull.CheckExistUserName(model.Username))
+        //    {
+        //        return false;
+        //    }
+        //    entity.AccountID = model.AccountID;
+        //    entity.Username = model.Username;
+        //    entity.Password = model.Password;
+        //    entity.Phone = model.Phone;
+        //    entity.Address = model.Address;
+        //    entity.Gender = model.Gender;
+
+        //    if(model.AccountID > 0)
+        //    {
+        //        entity.LastModifiedDate = DateTime.Now;
+        //    }
+        //    else
+        //    {
+        //        entity.CreatedDate = DateTime.Now;
+        //    }
+        //    return ull.CreateOrUpdateUser(entity);
+        //}
         [HttpPost]
-        public bool CreateOrUpdate(AccountModel model )
+        public bool Register(AccountModel model)
         {
             Account entity = new Account();
             if(ull.CheckExistUserName(model.Username))
             {
                 return false;
             }
+            //if (model.Password != model.ConfirmPassword)
+            //{
+            //    return false;
+            //}
             entity.AccountID = model.AccountID;
             entity.Username = model.Username;
             entity.Password = model.Password;
+            //entity.ConfirmPassword = model.ConfirmPassword;
             entity.Phone = model.Phone;
             entity.Address = model.Address;
             entity.Gender = model.Gender;
-
-            if(model.AccountID > 0)
+            entity.Status = true;
+            entity.Role = model.Role;
+            if (model.AccountID > 0)
             {
                 entity.LastModifiedDate = DateTime.Now;
             }
@@ -46,13 +77,14 @@ namespace Test.Areas.Admin.Controllers
             {
                 entity.CreatedDate = DateTime.Now;
             }
-            return ull.CreateOrUpdateUser(entity);
+            return ull.Register(entity);
         }
         [HttpPost]
         public  bool Delete(int id)
         {
             return ull.DeleteUser(id);
         }
+     
        
     }
 }

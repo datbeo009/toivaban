@@ -45,6 +45,7 @@ namespace DataAccess.Entity
                 .IsUnicode(false);
             modelBuilder.Entity<Category>().Ignore(e => e.lsChild);
             modelBuilder.Entity<Product>().Ignore(e => e.CategoryName);
+            modelBuilder.Entity<Account>().Ignore(e => e.ConfirmPassword);
         }
     }
 }

@@ -66,6 +66,11 @@ namespace DataAccess.DAL
 
         }
 
+
+        public Article GetById(int id)
+        {
+            return _dbContext.Article.Find(id);
+        }
         public bool CheckExistTitle(string title)
         {
             return _dbContext.Article.Any(e => e.Title == title);

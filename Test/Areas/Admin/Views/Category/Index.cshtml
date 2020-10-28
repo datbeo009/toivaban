@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 }
 
-<div>
+<div style="background-color:white">
     <h2>Category Manager</h2>
     <div>
         <div class="col-md-12">
@@ -31,15 +31,17 @@
         </table>
     </div>
     <div class="modal" id="addedit" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 1000px!important">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 800px!important">
             <div class="modal-content">
-                <div class="card" style="width:997px;height:1010px ">
-                    <div class="card-header"><strong></strong><small> Category</small></div>
+                <div class="card" style="width:797px;height:300px ">
+                    <div class="card-header"><strong>Add Category</strong><div id="closeM" class="fa fa-times" style="float:right"></div></div>
                     <div class="card-body card-block">
-                        <div class="form-group">
-                            <label for="company" class=" form-control-label">Name</label>
-                            <input type="text" id="name" placeholder="Enter your product name" class="form-control">
-                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="company" class=" form-control-label">Name</label></div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="name" placeholder="Enter your product name" class="form-control">
+                                </div>
+                            </div>
                         <div class="row form-group">
                             <div class="col col-md-3"><label for="select" class=" form-control-label">Parent</label></div>
                             <div class="col-12 col-md-9">
@@ -90,12 +92,27 @@
     </div>
 </div>
 
+<div id="pagination"></div>
+
 <style>
     .openModal {
         display: block !important
     }
+   
+     select {
+            padding: 5px 8px;
+            width: 20%;
+            border: none;
+            box-shadow: none;
+            background: transparent;
+            background-image: none;
+            -webkit-appearance: none;
+        }
+    
+    
 </style>
 <script>
+    var pagi = $('#pagination');
     var _glbCategory;
     var lsCategory = $('#dataCategory');
     var selectCate = $('#selectCate');
@@ -109,21 +126,25 @@
                 _glbCategory = res;
                 console.log(res)
                 if (_glbCategory) {
+
                     _glbCategory.forEach((e, i) => {
                         var cateId = e.CategoryID;
-                        lsCategory.append("<tr><th scope ='row'>" + (i + 1) + "</th ><td>" + e.CategoryName + "</td><td><button class ='selSub"+i+"' type='button' data-toggle='dropdown'></button></td><td ><a data-id='" + cateId + "' class='btnEdit'><i class='fa fa-wrench'></i></a> <a class='btnDel' data-id='" + cateId + "'><i class='fa fa-times-circle' ></i></a></td></tr >");
+                        lsCategory.append("<tr><th scope ='row'>" + (i + 1) + "</th ><td>" + e.CategoryName + "</td><td><select class ='selSub" + i +"' ></select></td><td ><a data-id='" + cateId + "' class='btnEdit'><i class='fa fa-wrench'></i></a> <a class='btnDel' data-id='" + cateId + "'><i class='fa fa-times-circle' ></i></a></td></tr >");
                         selectCate.append("<option value='" + cateId + "'>" + e.CategoryName + " </option>");
                         
                         var childCate = e.lsChild;
 
                         if (childCate.length > 0) {
                             childCate.forEach(m => {
-                                $(".selSub" + i).append("<ul class='dropdown - menu'><li>" + m.CategoryName + "</ul</li>")
+                                $(".selSub" + i).append("<option>" + m.CategoryName + "</option'>")
                             })
                         }
                         
 
                     })
+
+                    var getPage = ShowOnPagination(_glbCategory.length, 5);
+                    pagi.append(getPage)
                 }
             }
         })

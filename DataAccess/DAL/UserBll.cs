@@ -16,7 +16,7 @@ namespace DataAccess.DAL
         }
         public List<Account> Gets()
         {
-            return _dbContex.Accounts.ToList();
+            return _dbContex.Accounts.Where(e=>e.Status == true).ToList();
         }
         public bool CreateOrUpdateUser (Account entity)
         {
@@ -46,6 +46,63 @@ namespace DataAccess.DAL
                 return false;
             }
         }
+
+        public bool Register(Account entity)
+        {
+            try
+            {
+                var salt = Guid.NewGuid().ToString().Substring(0, 7);
+                var pass = entity.Password;
+
+                var passMD5 = Encryptor.MD5Hash(pass + salt);
+
+                entity.Password = passMD5;
+                entity.Salt = salt;
+
+                _dbContex.Accounts.Add(entity);
+                return _dbContex.SaveChanges() > 0;
+                
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
+        public bool Login (string username,string pass)
+        {
+            //lấy user co username 
+            var user = _dbContex.Accounts.SingleOrDefault(e => e.Username == username);
+
+
+            if (user != null)
+            {
+                if (!user.Status)
+                {
+                    return false;
+                    //
+                }
+                var salt = user.Salt;
+                var password = Encryptor.MD5Hash(pass + salt);
+
+                if (password == user.Password)
+                {
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
+        public Account User(string username)
+        {
+            return _dbContex.Accounts.SingleOrDefault(e => e.Username == username);
+
+        }
+
+
         public bool DeleteUser(int id)
         {
             try

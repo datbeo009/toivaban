@@ -9,7 +9,7 @@ using Test.Areas.Admin.Models;
 
 namespace Test.Areas.Admin.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
         // GET: Admin/Product
         public ActionResult Index()
@@ -18,8 +18,6 @@ namespace Test.Areas.Admin.Controllers
             //ctroller.AddToCart(1);
 
             //var abc = ctroller.GetCart();
-
-
 
             return View();
         }

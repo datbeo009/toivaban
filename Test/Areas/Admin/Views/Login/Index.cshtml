@@ -60,9 +60,9 @@
                             </label>
 
                         </div>
-                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30" id="submit">Sign in</button>
 
                     </form>
+                    <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30" id="submit">Sign in</button>
                 </div>
             </div>
         </div>
@@ -89,11 +89,8 @@
                 method: "POST",
                 data: { model: admin },
                 success: function (res) {
-                    if (res) {
-                        alert('okla')
-                    } else {
-                        alert('ko okla')
-                    }
+                    console.log(res)
+                    window.location.href = res
 
                 }, error: function (error) {
                     console.log(error);

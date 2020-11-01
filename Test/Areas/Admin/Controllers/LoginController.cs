@@ -24,20 +24,20 @@ namespace Test.Areas.Admin.Controllers
         {
             //if (ModelState.IsValid)
             //{
-                UserBll ull = new UserBll();
-                if (ull.Login(model.UserName, model.PassWord))
-                {
-                    var user = ull.User(model.UserName);
-                    var adminLogin = new AdminLogin();
-                    adminLogin.UserName = user.Username;
-                    adminLogin.UserId = user.AccountID;
+            UserBll ull = new UserBll();
+            if (ull.Login(model.UserName, model.PassWord))
+            {
+                var user = ull.User(model.UserName);
+                var adminLogin = new AdminLogin();
+                adminLogin.UserName = user.Username;
+                adminLogin.UserId = user.AccountID;
 
-                    Session["AdminSession"] = adminLogin;
-
-                    return RedirectToAction("Index", "Product");
-                }
-            //}
-            return View("Index");
+                Session["AdminSession"] = adminLogin;
+                return Json(Url.Action("Index", "Product"));
+                //return RedirectToAction("Index", "Product", new { area = "Admin" });
+            }
+            return Json(Url.Action("Index"));
+            //return View("Index");
         }
 
 

@@ -17,6 +17,9 @@ namespace DataAccess.Entity
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -40,6 +43,11 @@ namespace DataAccess.Entity
                 .Property(e => e.Content)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<Order>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
+            modelBuilder.Entity<OrderDetail>()
+                .Property(e => e.ProductId);
             modelBuilder.Entity<Article>()
                 .Property(e => e.Image)
                 .IsUnicode(false);

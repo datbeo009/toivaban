@@ -9,7 +9,7 @@ using Test.Areas.Admin.Models;
 
 namespace Test.Areas.Admin.Controllers
 {
-    public class ArticleController : Controller
+    public class ArticleController : BaseController
     {
         // GET: Admin/Article
         public ActionResult Index()

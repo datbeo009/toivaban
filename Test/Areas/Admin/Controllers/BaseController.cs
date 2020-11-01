@@ -11,6 +11,7 @@ namespace Test.Areas.Admin.Controllers
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            var getAllSession = Session;
             var session = (AdminLogin)Session["AdminSession"];
             if (session == null)
             {

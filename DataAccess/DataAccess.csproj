@@ -44,6 +44,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\ArticleBll.cs" />
+    <Compile Include="DAL\Cart.cs" />
     <Compile Include="DAL\CategoryBll.cs" />
     <Compile Include="DAL\Encryptor.cs" />
     <Compile Include="DAL\ProductBll.cs" />
@@ -60,6 +62,8 @@
     <Compile Include="Entity\Account.cs" />
     <Compile Include="Entity\Article.cs" />
     <Compile Include="Entity\Category.cs" />
+    <Compile Include="Entity\Order.cs" />
+    <Compile Include="Entity\OrderDetail.cs" />
     <Compile Include="Entity\Product.cs" />
     <Compile Include="Entity\Review.cs" />
     <Compile Include="Entity\WebModel.cs" />

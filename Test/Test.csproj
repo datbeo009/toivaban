@@ -134,6 +134,7 @@
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\FileController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShoppingCartController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
@@ -1090,6 +1091,7 @@
     <Folder Include="Areas\Admin\images\avatar\" />
     <Folder Include="Areas\Admin\Views\Base\" />
     <Folder Include="Areas\Admin\Views\File\" />
+    <Folder Include="Areas\Admin\Views\Order\" />
     <Folder Include="Areas\Admin\Views\ShoppingCart\" />
     <Folder Include="assetclient\assets\img\blog\latest-post\" />
     <Folder Include="Models\" />

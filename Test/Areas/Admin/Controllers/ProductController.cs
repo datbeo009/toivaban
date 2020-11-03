@@ -61,5 +61,7 @@ namespace Test.Areas.Admin.Controllers
         {
             return proBll.DeleteProduct(id);
         }
+
+
     }
 }

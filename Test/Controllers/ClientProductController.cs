@@ -1,4 +1,5 @@
 ﻿using DataAccess.DAL;
+using DataAccess.Entity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,11 @@ namespace Test.Controllers
         public string Gets()
         {
             return JsonConvert.SerializeObject(proBll.Gets());
+        }
+
+        public Product GetProductById(int proId)
+        {
+            return proBll.GetById(proId);
         }
     }
 }

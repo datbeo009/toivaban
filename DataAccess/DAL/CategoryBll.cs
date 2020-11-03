@@ -19,11 +19,11 @@ namespace DataAccess.DAL
 
         public List<Category> Gets()
         {
-            var allCate = _dbContext.Categories.ToList();
+            var allCate = _dbContext.Categories.Where(e => e.Status == true).ToList();
             List<Category> lsCate = new List<Category>();
             var parCate = allCate.Where(e => e.ParentID == 0).ToList();
-            
-            foreach(var item in parCate)
+
+            foreach (var item in parCate)
             {
                 Category entity = new Category();
                 entity.CategoryID = item.CategoryID;
@@ -75,7 +75,7 @@ namespace DataAccess.DAL
                 _dbContext.SaveChanges();
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }

@@ -1,4 +1,5 @@
-﻿using DataAccess.Entity;
+﻿using DataAccess.DAL;
+using DataAccess.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,20 @@ namespace Test.Areas.Admin.Controllers
             return View();
         }
 
-
-        public Order Gets()
+        DataAccess.DAL.Order bll = new DataAccess.DAL.Order();
+        public  List<DataAccess.Entity.Order> Gets()
         {
-
+            return bll.GetAll();
         }
+
+        public bool ApprovedOrder(int id, bool isDenied)
+        {
+            return bll.ApproveOrder(id, isDenied);
+        }
+        public List<OrderDetail> GetDetail(int id)
+        {
+            return bll.GetDetail(id);
+        }
+
     }
 }

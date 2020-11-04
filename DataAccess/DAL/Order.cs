@@ -33,6 +33,7 @@ namespace DataAccess.DAL
             }
             return false;
         }
+
         public List<OrderDetail> GetDetail(int id)
         {
             return db.OrderDetails.Where(e => e.OrderId == id).ToList();
